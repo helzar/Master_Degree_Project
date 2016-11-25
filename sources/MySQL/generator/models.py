@@ -13,8 +13,8 @@ STATION_TYPES = {
 
 
 class StationType(Model):
-    id = IntegerField(primary_key=True, unique=True)
-    name = CharField(max_length=50)
+    id = PrimaryKeyField()
+    name = CharField(max_length=50, null=False)
 
     class Meta:
         database = db
@@ -22,13 +22,13 @@ class StationType(Model):
 
 
 class ElectricalStation(Model):
-    id = IntegerField(primary_key=True, unique=True)
-    type = ForeignKeyField(StationType, related_name='stations')
-    is_active = BooleanField()
-    name = CharField(unique=True, max_length=50)
-    region = CharField(max_length=50)
-    location = CharField(max_length=100)
-    description = CharField(max_length=255)
+    id = PrimaryKeyField()
+    type = ForeignKeyField(StationType, related_name='stations', null=False)
+    is_active = BooleanField(null=False)
+    name = CharField(unique=True, max_length=50, null=False)
+    region = CharField(max_length=50, null=True)
+    location = CharField(max_length=100, null=True)
+    description = CharField(max_length=255, null=True)
 
     class Meta:
         database = db
@@ -36,12 +36,12 @@ class ElectricalStation(Model):
 
 
 class Transformer(Model):
-    id = IntegerField(primary_key=True, unique=True)
-    parent_transformer = ForeignKeyField('self', related_name='child_transformers')
-    parent_electrical_station = ForeignKeyField(ElectricalStation, related_name='child_transformers')
-    region = CharField(max_length=50)
-    location = CharField(max_length=100)
-    description = CharField(max_length=255)
+    id = PrimaryKeyField()
+    parent_transformer = ForeignKeyField('self', related_name='child_transformers', null=True)
+    parent_electrical_station = ForeignKeyField(ElectricalStation, related_name='child_transformers', null=True)
+    region = CharField(max_length=50, null=True)
+    location = CharField(max_length=100, null=True)
+    description = CharField(max_length=255, null=True)
 
     class Meta:
         database = db
@@ -49,12 +49,12 @@ class Transformer(Model):
 
 
 class PowerConsumption(Model):
-    id = IntegerField(primary_key=True, unique=True)
-    transformer = ForeignKeyField(Transformer, related_name='consumption_logs')
-    timestamp = FixedCharField(max_length=20)
-    losses = DoubleField()
-    electric_power = IntegerField()
-    was_enabled = BooleanField()
+    id = PrimaryKeyField()
+    transformer = ForeignKeyField(Transformer, related_name='consumption_logs', null=False)
+    timestamp = FixedCharField(max_length=20, null=False)
+    losses = DoubleField(null=True)
+    electric_power = IntegerField(null=False)
+    was_enabled = BooleanField(null=True)
 
     class Meta:
         database = db

@@ -1,4 +1,4 @@
-from MySQL.generator.common import remove_all_data, populate_station_types
+from MySQL.generator.common import remove_all_data, populate_station_types, create_tables, drop_tables
 from MySQL.generator.models import db, ElectricalStation, Transformer, PowerConsumption, StationType, STATION_TYPES
 
 
@@ -35,7 +35,7 @@ def populate_transformers_and_power_consumption_for_station(station):
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T16:10:00", losses=0.01, electric_power=28000, was_enabled=True)
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T17:10:00", losses=0.02, electric_power=35000, was_enabled=True)
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T18:10:00", losses=0.03, electric_power=40000, was_enabled=True)
-
+    
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_2, timestamp="10-10-2016T14:10:00", losses=0.1, electric_power=20000, was_enabled=True)
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_2, timestamp="10-10-2016T15:10:00", losses=0.1, electric_power=22000, was_enabled=True)
 
@@ -57,7 +57,8 @@ def populate_transformers_and_power_consumption_for_station(station):
 
 if __name__ == '__main__':
     db.connect()
-    remove_all_data()
+    drop_tables()
+    create_tables()
     stations = populate_station_types()  # dict of <station_name, station_model_object>
 
     station_1 = ElectricalStation.create(id=1, type=stations['TERMAL'], is_active=True, name="Добротвірська ТЕС", region="Львівська область", location="м. Добротвір")
