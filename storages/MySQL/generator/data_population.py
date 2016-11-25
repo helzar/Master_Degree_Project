@@ -18,17 +18,17 @@ def get_transformer_log_id():
     return transformer_log_id
 
 
-def populate_transformers_and_power_consumption_for_station(station):
-    transformer_1 = Transformer.create(id=get_transformer_log_id(), parent_electrical_station=station, region=station.region, location=station.location)
-    transformer_2 = Transformer.create(id=get_transformer_log_id(), parent_electrical_station=station, region=station.region, location=station.location)
-    transformer_3 = Transformer.create(id=get_transformer_log_id(), parent_electrical_station=station, region=station.region, location=station.location)
+def populate_transformers_and_power_consumption_for_station(station, transformers_locations):
+    transformer_1 = Transformer.create(id=get_transformer_log_id(), parent_electrical_station=station, region=station.region, location=transformers_locations[0])
+    transformer_2 = Transformer.create(id=get_transformer_log_id(), parent_electrical_station=station, region=station.region, location=transformers_locations[1])
+    transformer_3 = Transformer.create(id=get_transformer_log_id(), parent_electrical_station=station, region=station.region, location=transformers_locations[2])
 
-    transformer_2_1 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_2, region=station.region, location=station.location)
-    transformer_2_2 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_2, region=station.region, location=station.location)
+    transformer_2_1 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_2, region=station.region, location=transformers_locations[3])
+    transformer_2_2 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_2, region=station.region, location=transformers_locations[4])
 
-    transformer_3_1 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_3, region=station.region, location=station.location)
-    transformer_3_2 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_3, region=station.region, location=station.location)
-    transformer_3_3 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_3, region=station.region, location=station.location)
+    transformer_3_1 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_3, region=station.region, location=transformers_locations[5])
+    transformer_3_2 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_3, region=station.region, location=transformers_locations[6])
+    transformer_3_3 = Transformer.create(id=get_transformer_log_id(), parent_transformer=transformer_3, region=station.region, location=transformers_locations[7])
 
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T14:10:00", losses=0.01, electric_power=22000, was_enabled=True)
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T15:10:00", losses=0.01, electric_power=26000, was_enabled=True)
@@ -61,11 +61,15 @@ if __name__ == '__main__':
     create_tables()
     stations = populate_station_types()  # dict of <station_name, station_model_object>
 
-    station_1 = ElectricalStation.create(id=1, type=stations['TERMAL'], is_active=True, name="Добротвірська ТЕС", region="Львівська область", location="м. Добротвір")
-    station_2 = ElectricalStation.create(id=2, type=stations['TERMAL'], is_active=True, name="Запорізька ТЕС", region="Запорізька область", location="м. Енергодар")
-    station_3 = ElectricalStation.create(id=3, type=stations['NUCLEAR'], is_active=True, name="Рівненська АЕС", region="Рівненська область", location="м. Вараш")
+    station_1 = ElectricalStation.create(id=1, type=stations['TERMAL'], is_active=True, name="Добротвірська ТЕС", region="Львівська область", location="Добротвір")
+    station_2 = ElectricalStation.create(id=2, type=stations['TERMAL'], is_active=True, name="Запорізька ТЕС", region="Запорізька область", location="Енергодар")
+    station_3 = ElectricalStation.create(id=3, type=stations['NUCLEAR'], is_active=True, name="Рівненська АЕС", region="Рівненська область", location="Вараш")
 
-    populate_transformers_and_power_consumption_for_station(station_1)
-    populate_transformers_and_power_consumption_for_station(station_2)
-    populate_transformers_and_power_consumption_for_station(station_3)
+    transformers_locations_for_station_1 = ["Львів", "Стрий", "Рудки", "Жовква", "Червоноград", "Самбір", "Золочів", "Городок"]
+    transformers_locations_for_station_2 = ["Мелітополь", "Запоріжжя", "Розівка", "Веселе", "Оріхів", "Якимівка", "Кушугум", "Пологи"]
+    transformers_locations_for_station_3 = ["Рівне", "Дубно", "Сарни", "Клесів", "Клевань", "Зарічне", "Корець", "Корост"]
+
+    populate_transformers_and_power_consumption_for_station(station_1, transformers_locations_for_station_1)
+    populate_transformers_and_power_consumption_for_station(station_2, transformers_locations_for_station_2)
+    populate_transformers_and_power_consumption_for_station(station_3, transformers_locations_for_station_3)
 
