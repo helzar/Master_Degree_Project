@@ -1,4 +1,4 @@
-package com.vovan.dwh.data_population.generators;
+package com.vovan.dwh.data_population.generator;
 
 import java.util.Random;
 

@@ -1,14 +1,12 @@
-package com.vovan.dwh.data_population.generators;
+package com.vovan.dwh.data_population.generator;
 
 import com.vovan.dwh.models.PowerConsumption;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by Volodymyr Roman on 24.11.2016.
@@ -28,7 +26,8 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
     private int currentId;
 
 
-    public PowerConsumptionLogsGenerator(RandomMetricsGenerator randomMetricsGenerator, String startTimestamp, int startId, List<Integer> transformers, int numberOfMessages) {
+    public PowerConsumptionLogsGenerator(RandomMetricsGenerator randomMetricsGenerator, String startTimestamp,
+                                         int startId, List<Integer> transformers, int numberOfMessages) {
         this.randomMetricsGenerator = randomMetricsGenerator;
         this.startTimestamp = startTimestamp;
         this.currentId = startId;

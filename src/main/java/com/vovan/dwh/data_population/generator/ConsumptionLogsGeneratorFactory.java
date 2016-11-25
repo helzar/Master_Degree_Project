@@ -1,4 +1,4 @@
-package com.vovan.dwh.data_population.generators;
+package com.vovan.dwh.data_population.generator;
 
 import com.vovan.dwh.models.PowerConsumption;
 
@@ -17,8 +17,8 @@ public class ConsumptionLogsGeneratorFactory {
      * @param numberOfMessages
      * @return iterator witch generates transformers.size * numberOfMessages logs
      */
-    public static Iterator<PowerConsumption> create(String startTimestamp, int startId, List<Integer> transformers,
-                                                    int numberOfMessages) {
+    public static Iterator<PowerConsumption> create(String startTimestamp, int startId,
+                                                    List<Integer> transformers, int numberOfMessages) {
 
         return new PowerConsumptionLogsGenerator(new RandomMetricsGenerator(),
                 startTimestamp, startId, transformers, numberOfMessages);
