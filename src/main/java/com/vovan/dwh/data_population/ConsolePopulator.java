@@ -4,6 +4,7 @@ import com.vovan.dwh.data_population.generator.ConsumptionLogsGeneratorFactory;
 import com.vovan.dwh.models.PowerConsumption;
 
 import java.util.Arrays;
+import java.util.OptionalInt;
 import java.util.stream.StreamSupport;
 
 /**
@@ -15,10 +16,11 @@ public class ConsolePopulator {
 
     public static void main(String[] args) {
         Iterable<PowerConsumption> iterable = () -> ConsumptionLogsGeneratorFactory
-                .create("29-11-2016T11:00:30", 1, Arrays.asList(1, 2), 300);
+                .create("29-11-2016T11:00:30", OptionalInt.empty(), Arrays.asList(1, 2), 10);
+//        OptionalInt.of(1)
 
         StreamSupport.stream(iterable.spliterator(), false)
-                .filter(a -> !a.isWasEnabled())
+//                .filter(a -> !a.isWasEnabled())
                 .forEach(System.out::println);
 
         System.out.println(StreamSupport.stream(iterable.spliterator(), false).count());

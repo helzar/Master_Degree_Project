@@ -35,7 +35,7 @@ def populate_transformers_and_power_consumption_for_station(station):
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T16:10:00", losses=0.01, electric_power=28000, was_enabled=True)
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T17:10:00", losses=0.02, electric_power=35000, was_enabled=True)
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_1, timestamp="10-10-2016T18:10:00", losses=0.03, electric_power=40000, was_enabled=True)
-    
+
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_2, timestamp="10-10-2016T14:10:00", losses=0.1, electric_power=20000, was_enabled=True)
     PowerConsumption.create(id=get_consumption_log_id(), transformer=transformer_2, timestamp="10-10-2016T15:10:00", losses=0.1, electric_power=22000, was_enabled=True)
 

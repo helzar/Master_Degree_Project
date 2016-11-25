@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * Created by Volodymyr Roman on 24.11.2016.
@@ -23,11 +25,11 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
     private int currentTransformer = 0;
     private int generatedLog = 0;
     private LocalDateTime currentTimestamp = null;
-    private int currentId;
+    private OptionalInt currentId;
 
 
     public PowerConsumptionLogsGenerator(RandomMetricsGenerator randomMetricsGenerator, String startTimestamp,
-                                         int startId, List<Integer> transformers, int numberOfMessages) {
+                                         OptionalInt startId, List<Integer> transformers, int numberOfMessages) {
         this.randomMetricsGenerator = randomMetricsGenerator;
         this.startTimestamp = startTimestamp;
         this.currentId = startId;
@@ -61,8 +63,9 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
 
         generatedLog++;
         int electricPower = randomMetricsGenerator.generateElectricPower();
+        Integer logId = getLogId();
         return new PowerConsumption(
-                currentId++,
+                logId,
                 transformers.get(currentTransformer),
                 currentTimestamp.toString(),
                 randomMetricsGenerator.generateLossesBaseWithCorrelationToElectricPower(electricPower),
@@ -71,4 +74,13 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
         );
     }
 
+    public Integer getLogId() {
+        if (currentId.isPresent()){
+            Integer logId = currentId.getAsInt();
+            currentId = OptionalInt.of(currentId.getAsInt() + 1);
+            return logId;
+        } else {
+            return null;
+        }
+    }
 }

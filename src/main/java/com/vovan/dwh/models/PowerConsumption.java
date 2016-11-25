@@ -13,7 +13,8 @@ public class PowerConsumption {
     private Integer electricPower;
     private Boolean wasEnabled;
 
-    public PowerConsumption() {}
+    public PowerConsumption() {
+    }
 
     public PowerConsumption(Integer id, Integer transformerId, String timestamp, Double losses, Integer electricPower, Boolean wasEnabled) {
         this.id = id;
@@ -85,5 +86,14 @@ public class PowerConsumption {
                 ", electricPower=" + electricPower +
                 ", wasEnabled=" + wasEnabled +
                 '}';
+    }
+
+    public String toLineFormat() {
+        return id + "," +
+                transformerId + "," +
+                timestamp + "," +
+                losses + "," +
+                electricPower + "," +
+                wasEnabled;
     }
 }

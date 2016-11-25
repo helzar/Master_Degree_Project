@@ -4,3 +4,6 @@
 
 # Python libs
 pip install peewee
+
+# Swagger UI
+http://localhost:8080/swagger-ui.html

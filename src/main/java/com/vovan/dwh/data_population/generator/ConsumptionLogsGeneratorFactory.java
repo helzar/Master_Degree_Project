@@ -4,6 +4,8 @@ import com.vovan.dwh.models.PowerConsumption;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * Created by Volodymyr Roman on 24.11.2016.
@@ -17,7 +19,7 @@ public class ConsumptionLogsGeneratorFactory {
      * @param numberOfMessages
      * @return iterator witch generates transformers.size * numberOfMessages logs
      */
-    public static Iterator<PowerConsumption> create(String startTimestamp, int startId,
+    public static Iterator<PowerConsumption> create(String startTimestamp, OptionalInt startId,
                                                     List<Integer> transformers, int numberOfMessages) {
 
         return new PowerConsumptionLogsGenerator(new RandomMetricsGenerator(),

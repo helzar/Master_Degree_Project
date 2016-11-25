@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.OptionalInt;
 
 /**
  * Created by Volodymyr Roman on 25.11.2016.
@@ -28,13 +29,16 @@ public class MongoPopulator {
         collection = mongoClient.getDatabase(dbName).getCollection(collectionName);
     }
 
+    /**
+     * Just for manual testing
+     */
     public static void main(String[] args) throws JsonProcessingException {
         MongoPopulator populator = new MongoPopulator("local", "energy_data");
         populator.dropCollection();
-        populator.populate("29-11-2016T11:00:00", 1, Arrays.asList(1, 2), 200);
+        populator.populate("29-11-2016T11:00:00", OptionalInt.of(1), Arrays.asList(1, 2), 200);
     }
 
-    private void populate(String startTimestamp, int startId, List<Integer> transformers, int numberOfMessages) throws JsonProcessingException {
+    public void populate(String startTimestamp, OptionalInt startId, List<Integer> transformers, int numberOfMessages) throws JsonProcessingException {
         Iterator<PowerConsumption> logsIter = ConsumptionLogsGeneratorFactory.create(startTimestamp, startId, transformers, numberOfMessages);
         List<Document> buffer = new ArrayList<>(BATCH_SIZE);
 
@@ -53,7 +57,7 @@ public class MongoPopulator {
         }
     }
 
-    private void dropCollection() {
+    public void dropCollection() {
         collection.drop();
     }
 }
