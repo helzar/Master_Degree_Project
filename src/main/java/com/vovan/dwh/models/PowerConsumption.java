@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by Volodymyr Roman on 24.11.2016.
  */
 public class PowerConsumption {
-    private Integer log_id;
+    private Integer logId;
     private Integer transformerId;
     private String generationTimestamp;
     private Double losses;
@@ -19,8 +19,8 @@ public class PowerConsumption {
     public PowerConsumption() {
     }
 
-    public PowerConsumption(Integer log_id, Integer transformerId, String generationTimestamp, Double losses, Integer electricPower, Boolean wasEnabled, String insertionTimestamp) {
-        this.log_id = log_id;
+    public PowerConsumption(Integer logId, Integer transformerId, String generationTimestamp, Double losses, Integer electricPower, Boolean wasEnabled, String insertionTimestamp) {
+        this.logId = logId;
         this.transformerId = transformerId;
         this.generationTimestamp = generationTimestamp;
         this.losses = losses;
@@ -29,12 +29,13 @@ public class PowerConsumption {
         this.insertionTimestamp = insertionTimestamp;
     }
 
-    public Integer getLog_id() {
-        return log_id;
+    @JsonProperty("log_id")
+    public Integer getLogId() {
+        return logId;
     }
 
-    public void setLog_id(Integer log_id) {
-        this.log_id = log_id;
+    public void setLogId(Integer logId) {
+        this.logId = logId;
     }
 
     @JsonProperty("transformer_id")
@@ -93,7 +94,7 @@ public class PowerConsumption {
     @Override
     public String toString() {
         return "PowerConsumption{" +
-                "log_id=" + log_id +
+                "logId=" + logId +
                 ", transformerId=" + transformerId +
                 ", generationTimestamp='" + generationTimestamp + '\'' +
                 ", losses=" + losses +
@@ -109,7 +110,7 @@ public class PowerConsumption {
      * @return csv format line
      */
     public String toLineFormat() {
-        return log_id + "," +
+        return logId + "," +
                 transformerId + "," +
                 generationTimestamp + "," +
                 losses + "," +
