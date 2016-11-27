@@ -39,7 +39,8 @@ public class MongoPopulator {
     }
 
     public void populate(String startTimestamp, OptionalInt startId, List<Integer> transformers, int numberOfMessages) throws JsonProcessingException {
-        Iterator<PowerConsumption> logsIter = ConsumptionLogsGeneratorFactory.create(startTimestamp, startId, transformers, numberOfMessages);
+        Iterator<PowerConsumption> logsIter =
+                ConsumptionLogsGeneratorFactory.create(startTimestamp, startId, transformers, numberOfMessages, true);
         List<Document> buffer = new ArrayList<>(BATCH_SIZE);
 
         while (logsIter.hasNext()) {

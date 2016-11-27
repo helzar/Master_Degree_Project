@@ -1,3 +1,4 @@
+import datetime
 from peewee import *
 
 
@@ -51,10 +52,15 @@ class Transformer(Model):
 class PowerConsumption(Model):
     id = PrimaryKeyField()
     transformer = ForeignKeyField(Transformer, related_name='consumption_logs', null=False)
-    timestamp = FixedCharField(max_length=20, null=False)
+    generation_timestamp = FixedCharField(max_length=20, null=False)
     losses = DoubleField(null=True)
     electric_power = IntegerField(null=False)
     was_enabled = BooleanField(null=True)
+    insertion_timestamp = FixedCharField(max_length=20, null=False)
+
+    def save(self, *args, **kwargs):
+        self.insertion_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+        return super(PowerConsumption, self).save(*args, **kwargs)
 
     class Meta:
         database = db

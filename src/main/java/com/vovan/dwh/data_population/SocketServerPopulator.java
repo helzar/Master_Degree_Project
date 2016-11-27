@@ -78,7 +78,7 @@ public class SocketServerPopulator implements Runnable {
             while (eventsQueue.size() > 0) {
                 TcpSocketDataPopulationEvent event = eventsQueue.pollLast();
                 Iterator<PowerConsumption> logsIter = ConsumptionLogsGeneratorFactory.create(
-                        event.getStartTimestamp(), event.getStartId(), event.getTransformers(), event.getNumberOfMessages());
+                        event.getStartTimestamp(), event.getStartId(), event.getTransformers(), event.getNumberOfMessages(), false);
                 while (logsIter.hasNext()) {
                     out.writeUTF(logsIter.next().toLineFormat() + "\n");
                 }

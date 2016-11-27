@@ -8,21 +8,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PowerConsumption {
     private Integer id;
     private Integer transformerId;
-    private String timestamp;
+    private String generationTimestamp;
     private Double losses;
     private Integer electricPower;
     private Boolean wasEnabled;
+    private String insertionTimestamp;
 
     public PowerConsumption() {
     }
 
-    public PowerConsumption(Integer id, Integer transformerId, String timestamp, Double losses, Integer electricPower, Boolean wasEnabled) {
+    public PowerConsumption(Integer id, Integer transformerId, String generationTimestamp, Double losses, Integer electricPower, Boolean wasEnabled, String insertionTimestamp) {
         this.id = id;
         this.transformerId = transformerId;
-        this.timestamp = timestamp;
+        this.generationTimestamp = generationTimestamp;
         this.losses = losses;
         this.electricPower = electricPower;
         this.wasEnabled = wasEnabled;
+        this.insertionTimestamp = insertionTimestamp;
     }
 
     public Integer getId() {
@@ -42,12 +44,13 @@ public class PowerConsumption {
         this.transformerId = transformerId;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    @JsonProperty("generation_timestamp")
+    public String getGenerationTimestamp() {
+        return generationTimestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setGenerationTimestamp(String generationTimestamp) {
+        this.generationTimestamp = generationTimestamp;
     }
 
     public Double getLosses() {
@@ -76,22 +79,37 @@ public class PowerConsumption {
         this.wasEnabled = wasEnabled;
     }
 
+    @JsonProperty("insertion_timestamp")
+    public String getInsertionTimestamp() {
+        return insertionTimestamp;
+    }
+
+    public void setInsertionTimestamp(String insertionTimestamp) {
+        this.insertionTimestamp = insertionTimestamp;
+    }
+
     @Override
     public String toString() {
         return "PowerConsumption{" +
                 "id=" + id +
                 ", transformerId=" + transformerId +
-                ", timestamp='" + timestamp + '\'' +
+                ", generationTimestamp='" + generationTimestamp + '\'' +
                 ", losses=" + losses +
                 ", electricPower=" + electricPower +
                 ", wasEnabled=" + wasEnabled +
+                ", insertionTimestamp='" + insertionTimestamp + '\'' +
                 '}';
     }
 
+    /**
+     * Method builds csv format line to be streamed via TCP Socket
+     * insertion_timestamp field is not included in output line
+     * @return csv format line
+     */
     public String toLineFormat() {
         return id + "," +
                 transformerId + "," +
-                timestamp + "," +
+                generationTimestamp + "," +
                 losses + "," +
                 electricPower + "," +
                 wasEnabled;

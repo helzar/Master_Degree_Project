@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalInt;
 
 /**
@@ -21,6 +20,7 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
     private final String startTimestamp;
     private final List<Integer> transformers;
     private final int numberOfMessages;
+    private final boolean enableIngestionTime;
 
     private int currentTransformer = 0;
     private int generatedLog = 0;
@@ -29,12 +29,13 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
 
 
     public PowerConsumptionLogsGenerator(RandomMetricsGenerator randomMetricsGenerator, String startTimestamp,
-                                         OptionalInt startId, List<Integer> transformers, int numberOfMessages) {
+                                         OptionalInt startId, List<Integer> transformers, int numberOfMessages, boolean enableIngestionTime) {
         this.randomMetricsGenerator = randomMetricsGenerator;
         this.startTimestamp = startTimestamp;
         this.currentId = startId;
         this.transformers = transformers;
         this.numberOfMessages = numberOfMessages;
+        this.enableIngestionTime = enableIngestionTime;
     }
 
     @Override
@@ -70,7 +71,8 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
                 currentTimestamp.toString(),
                 randomMetricsGenerator.generateLossesBaseWithCorrelationToElectricPower(electricPower),
                 electricPower,
-                randomMetricsGenerator.generateWasEnabledParameter()
+                randomMetricsGenerator.generateWasEnabledParameter(),
+                enableIngestionTime ? DATE_FORMATTER.format(LocalDateTime.now()) : null
         );
     }
 

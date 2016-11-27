@@ -8,13 +8,15 @@ USE main_storage;
 
 CREATE TABLE IF NOT EXISTS main_storage.power_consumption_row (
 	transformer_id int,
-	timestamp text,
+	generation_timestamp text,
 	losses double,
 	electric_power int,
 	was_enabled boolean,
 	log_id int,
-	PRIMARY KEY (transformer_id, timestamp)
+	insertion_timestamp text,
+	PRIMARY KEY (transformer_id, generation_timestamp)
 );
+
 
 
 

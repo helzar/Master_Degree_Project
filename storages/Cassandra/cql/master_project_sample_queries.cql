@@ -2,18 +2,19 @@
 
 CREATE TABLE IF NOT EXISTS main_storage.power_consumption_row (
 	transformer_id int,
-	timestamp text,
+	generation_timestamp text,
 	losses double,
 	electric_power int,
 	was_enabled boolean,
 	log_id int,
-	PRIMARY KEY (transformer_id, timestamp)
+	insertion_timestamp text,
+	PRIMARY KEY (transformer_id, generation_timestamp)
 );
 
 
 
-INSERT INTO main_storage.power_consumption_row (transformer_id, timestamp, losses, electric_power, was_enabled, log_id)
-VALUES (1, '2016-10-25T12:30:30', 0.01, 30000, true, null);
+INSERT INTO main_storage.power_consumption_row (transformer_id, generation_timestamp, losses, electric_power, was_enabled, log_id, insertion_timestamp)
+VALUES (1, '2016-10-25T12:30:30', 0.01, 30000, true, null, '2016-10-25T12:30:40');
 
 
 SELECT * FROM main_storage.power_consumption_row;
