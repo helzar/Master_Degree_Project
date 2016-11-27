@@ -14,7 +14,7 @@ STATION_TYPES = {
 
 
 class StationType(Model):
-    id = PrimaryKeyField()
+    log_id = PrimaryKeyField()
     name = CharField(max_length=50, null=False)
 
     class Meta:
@@ -23,7 +23,7 @@ class StationType(Model):
 
 
 class ElectricalStation(Model):
-    id = PrimaryKeyField()
+    log_id = PrimaryKeyField()
     type = ForeignKeyField(StationType, related_name='stations', null=False)
     is_active = BooleanField(null=False)
     name = CharField(unique=True, max_length=50, null=False)
@@ -37,7 +37,7 @@ class ElectricalStation(Model):
 
 
 class Transformer(Model):
-    id = PrimaryKeyField()
+    log_id = PrimaryKeyField()
     parent_transformer = ForeignKeyField('self', related_name='child_transformers', null=True)
     parent_electrical_station = ForeignKeyField(ElectricalStation, related_name='child_transformers', null=True)
     region = CharField(max_length=50, null=True)
@@ -50,7 +50,7 @@ class Transformer(Model):
 
 
 class PowerConsumption(Model):
-    id = PrimaryKeyField()
+    log_id = PrimaryKeyField()
     transformer = ForeignKeyField(Transformer, related_name='consumption_logs', null=False)
     generation_timestamp = FixedCharField(max_length=20, null=False)
     losses = DoubleField(null=True)
@@ -58,6 +58,10 @@ class PowerConsumption(Model):
     was_enabled = BooleanField(null=True)
     insertion_timestamp = FixedCharField(max_length=20, null=False)
 
+    # TODO: insertion time is added on client side, this logic should be moved to server side via schema update:
+    # ALTER TABLE `mytable`
+    # CHANGE `mydatefield` `mydatefield`
+    # TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     def save(self, *args, **kwargs):
         self.insertion_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         return super(PowerConsumption, self).save(*args, **kwargs)

@@ -35,7 +35,7 @@ public class MongoPopulator {
     public static void main(String[] args) throws JsonProcessingException {
         MongoPopulator populator = new MongoPopulator("local", "energy_data");
         populator.dropCollection();
-        populator.populate("29-11-2016T11:00:00", OptionalInt.of(1), Arrays.asList(1, 2), 200);
+        populator.populate("2016-11-29T11:00:30", OptionalInt.of(1), Arrays.asList(1, 2), 200);
     }
 
     public void populate(String startTimestamp, OptionalInt startId, List<Integer> transformers, int numberOfMessages) throws JsonProcessingException {

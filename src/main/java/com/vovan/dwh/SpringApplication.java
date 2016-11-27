@@ -1,6 +1,7 @@
 package com.vovan.dwh;
 
 import com.vovan.dwh.data_population.SocketServerPopulator;
+import org.apache.spark.SparkContext;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;

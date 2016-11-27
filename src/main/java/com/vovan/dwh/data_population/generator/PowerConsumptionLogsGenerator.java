@@ -14,7 +14,7 @@ import java.util.OptionalInt;
  */
 public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption> {
     private static Duration LOGGING_INTERVAL = Duration.ofHours(1);
-    private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss");
+    private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     private final RandomMetricsGenerator randomMetricsGenerator;
     private final String startTimestamp;
@@ -68,7 +68,7 @@ public class PowerConsumptionLogsGenerator implements Iterator<PowerConsumption>
         return new PowerConsumption(
                 logId,
                 transformers.get(currentTransformer),
-                currentTimestamp.toString(),
+                DATE_FORMATTER.format(currentTimestamp),
                 randomMetricsGenerator.generateLossesBaseWithCorrelationToElectricPower(electricPower),
                 electricPower,
                 randomMetricsGenerator.generateWasEnabledParameter(),

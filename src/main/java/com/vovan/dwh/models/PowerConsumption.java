@@ -6,19 +6,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by Volodymyr Roman on 24.11.2016.
  */
 public class PowerConsumption {
-    private Integer id;
+    private Integer log_id;
     private Integer transformerId;
     private String generationTimestamp;
     private Double losses;
     private Integer electricPower;
     private Boolean wasEnabled;
+    // TODO: currently is used for MySQL and MongoDB. For MongoDB its not applicable approach as insertionTimestamp is set on client, not server
+    // To fix this ETL from MongoDB to cluster should be done via Spark Streaming using Kafka and MongoDB Kafka build in streaming (TODO: investigate its exactly one delivery)
     private String insertionTimestamp;
 
     public PowerConsumption() {
     }
 
-    public PowerConsumption(Integer id, Integer transformerId, String generationTimestamp, Double losses, Integer electricPower, Boolean wasEnabled, String insertionTimestamp) {
-        this.id = id;
+    public PowerConsumption(Integer log_id, Integer transformerId, String generationTimestamp, Double losses, Integer electricPower, Boolean wasEnabled, String insertionTimestamp) {
+        this.log_id = log_id;
         this.transformerId = transformerId;
         this.generationTimestamp = generationTimestamp;
         this.losses = losses;
@@ -27,12 +29,12 @@ public class PowerConsumption {
         this.insertionTimestamp = insertionTimestamp;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getLog_id() {
+        return log_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setLog_id(Integer log_id) {
+        this.log_id = log_id;
     }
 
     @JsonProperty("transformer_id")
@@ -91,7 +93,7 @@ public class PowerConsumption {
     @Override
     public String toString() {
         return "PowerConsumption{" +
-                "id=" + id +
+                "log_id=" + log_id +
                 ", transformerId=" + transformerId +
                 ", generationTimestamp='" + generationTimestamp + '\'' +
                 ", losses=" + losses +
@@ -107,7 +109,7 @@ public class PowerConsumption {
      * @return csv format line
      */
     public String toLineFormat() {
-        return id + "," +
+        return log_id + "," +
                 transformerId + "," +
                 generationTimestamp + "," +
                 losses + "," +

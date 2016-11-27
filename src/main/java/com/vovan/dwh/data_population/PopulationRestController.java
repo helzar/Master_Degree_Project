@@ -28,7 +28,7 @@ public class PopulationRestController {
 
     @RequestMapping(value = "/mongodb", method = RequestMethod.POST)
     public ResponseEntity<String> mongoPopulation(
-            @RequestParam(value = "startTime", defaultValue = "29-11-2016T11:00:00") String startTimestamp,
+            @RequestParam(value = "startTime", defaultValue = "2016-11-29T11:00:30") String startTimestamp,
             @RequestParam(value = "startId", required = false) Integer startId,
             @RequestParam(value = "transformers", defaultValue = "1,2") String transformersString,
             @RequestParam(value = "numberOfMessages", defaultValue = "100") int numberOfMessages,
@@ -52,7 +52,7 @@ public class PopulationRestController {
 
     @RequestMapping(value = "/socket", method = RequestMethod.POST)
     public ResponseEntity<String> socketPopulation(
-            @RequestParam(value = "startTime", defaultValue = "29-11-2016T11:00:00") String startTimestamp,
+            @RequestParam(value = "startTime", defaultValue = "2016-11-29T11:00:30") String startTimestamp,
             @RequestParam(value = "startId", required = false) Integer startId,
             @RequestParam(value = "transformers", defaultValue = "1,2") String transformersString,
             @RequestParam(value = "numberOfMessages", defaultValue = "1") int numberOfMessages

@@ -29,7 +29,7 @@ def create_tables():
 
 def populate_station_types():
     dict = {}
-    for name, id in STATION_TYPES.items():
-        dict[name] = StationType.create(id=id, name=name)
+    for name, log_id in STATION_TYPES.items():
+        dict[name] = StationType.create(log_id=log_id, name=name)
     return dict
 

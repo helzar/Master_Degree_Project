@@ -16,7 +16,7 @@ public class ConsolePopulator {
 
     public static void main(String[] args) {
         Iterable<PowerConsumption> iterable = () -> ConsumptionLogsGeneratorFactory
-                .create("29-11-2016T11:00:30", OptionalInt.empty(), Arrays.asList(1, 2), 10, true);
+                .create("2016-11-29T11:00:30", OptionalInt.empty(), Arrays.asList(1, 2), 10, true);
 //        OptionalInt.of(1)
 
         StreamSupport.stream(iterable.spliterator(), false)
