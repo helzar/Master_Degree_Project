@@ -20,7 +20,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 // TODO: should be done as Streaming, see insertionTimestamp field comment in PowerConsumption cass
 // TODO: add property file
-// TODO: Refactor
+// TODO: Refactor this !!!!!
 object MongoDbEtlDriver {
   private val DateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
   private val LoggingInterval = Duration.ofMinutes(1)
